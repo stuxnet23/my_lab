@@ -1,0 +1,24 @@
+version: 2.1
+
+orbs:
+  trivy-orb: fifteen5/trivy-orb@1.0.0
+
+jobs:
+  scan-socket-io:
+    docker:
+      - image: cimg/node:21.1.0
+    steps:
+      - run:
+          name: clone socket.io
+          command: git clone https://github.com/socketio/socket.io.git
+      - trivy-orb/scan:
+          args: 'fs socket.io'
+
+workflows:
+  scan-busybox:
+    jobs:
+      - trivy-orb/scan:
+          args: '--no-progress --exit-code 1 image busybox'
+  scan-fs:
+    jobs:
+      - scan-socket-io
