@@ -18,7 +18,7 @@ workflows:
   scan-busybox:
     jobs:
       - trivy-orb/scan:
-          args: '--no-progress --exit-code 1 image busybox'
+          args: '--no-progress --exit-code 1 image nginx'
   scan-fs:
     jobs:
       - scan-socket-io
